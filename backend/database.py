@@ -17,7 +17,6 @@ def get_next_edu_id():
     prefix = f"Edu{year_month}"
     counter_id = f"counter_{prefix}"
     
-    # Try to atomically increment the counter
     counter_doc = counters_collection.find_one_and_update(
         {"_id": counter_id},
         {"$inc": {"seq": 1}},
@@ -25,10 +24,8 @@ def get_next_edu_id():
     )
     
     if counter_doc:
-        # Counter existed and was incremented
         next_sequence = counter_doc["seq"]
     else:
-        # Counter didn't exist, initialize it based on existing data to maintain continuity
         latest_doc = collection.find_one(
             {"_id": {"$regex": f"^{prefix}"}},
             sort=[("_id", -1)]
@@ -38,14 +35,12 @@ def get_next_edu_id():
         if latest_doc:
             last_id = latest_doc["_id"]
             try:
-                # Extract the numeric part (last 3 digits)
                 current_max_seq = int(last_id[-3:])
             except ValueError:
                 pass
         
         next_sequence = current_max_seq + 1
         
-        # Insert the new counter. Handle potential race condition if created concurrently.
         try:
             counters_collection.insert_one({"_id": counter_id, "seq": next_sequence})
         except Exception:

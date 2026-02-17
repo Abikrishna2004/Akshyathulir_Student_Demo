@@ -83,7 +83,6 @@ class Institution(InstitutionCreate):
     class Config:
         populate_by_name = True
 
-# --- API Endpoints ---
 
 @app.post("/api/upload")
 async def upload_file(file: UploadFile = File(...)):
