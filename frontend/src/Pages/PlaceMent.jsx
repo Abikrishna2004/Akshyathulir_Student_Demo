@@ -298,7 +298,7 @@ const PlaceMent = () => {
 
         console.log("Sending data:", payload);
 
-        const response = await fetch("http://localhost:8000/startup", {
+        const response = await fetch("https://akshyathulir-student-demo.onrender.com/startup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

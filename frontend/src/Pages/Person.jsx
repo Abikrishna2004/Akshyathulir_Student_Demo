@@ -208,7 +208,7 @@ export default function Person() {
       const fetchDetails = async () => {
         try {
           const res = await axios.get(
-            `http://localhost:8000/api/institution/email/${storedEmail}`,
+            `https://akshyathulir-student-demo.onrender.com/api/institution/email/${storedEmail}`,
           );
           const data = res.data;
 
@@ -415,7 +415,7 @@ export default function Person() {
 
       try {
         const res = await axios.post(
-          "http://localhost:8000/api/upload",
+          "https://akshyathulir-student-demo.onrender.com/api/upload",
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -556,12 +556,12 @@ export default function Person() {
       let res;
       if (eduId) {
         res = await axios.put(
-          `http://localhost:8000/api/institution/${eduId}`,
+          `https://akshyathulir-student-demo.onrender.com/api/institution/${eduId}`,
           payload,
         );
       } else {
         res = await axios.post(
-          "http://localhost:8000/api/institution/register",
+          "https://akshyathulir-student-demo.onrender.com/api/institution/register",
           payload,
         );
       }
@@ -571,9 +571,9 @@ export default function Person() {
       setEduSubmissionStatus("success");
       setEduSubmissionMessage(
         result.message ||
-          (eduId
-            ? "Update successful!"
-            : "Registration submitted successfully!"),
+        (eduId
+          ? "Update successful!"
+          : "Registration submitted successfully!"),
       );
 
       // Store email for next visit retrieval
@@ -597,7 +597,7 @@ export default function Person() {
       return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/institution/${eduId}`);
+      await axios.delete(`https://akshyathulir-student-demo.onrender.com/api/institution/${eduId}`);
       localStorage.removeItem("email");
       eduHandleReset();
       setEduSubmissionStatus("success");
@@ -711,33 +711,33 @@ export default function Person() {
 
               {(eduInstitutionType === "Engineering" ||
                 eduInstitutionType === "Arts & Science") && (
-                <>
-                  <Grid xs={12} md={6}>
-                    <TextField
-                      select
-                      fullWidth
-                      label="Autonomous Status"
-                      name="autonomousStatus"
-                      value={eduAutonomousStatus}
-                      onChange={(e) => setEduAutonomousStatus(e.target.value)}
-                    >
-                      <MenuItem value="Autonomous">Autonomous</MenuItem>
-                      <MenuItem value="Non-Autonomous">Non-Autonomous</MenuItem>
-                    </TextField>
-                  </Grid>
-                  {eduAutonomousStatus === "Non-Autonomous" && (
+                  <>
                     <Grid xs={12} md={6}>
                       <TextField
+                        select
                         fullWidth
-                        label="Affiliated University"
-                        name="universityName"
-                        value={eduFormData.universityName}
-                        onChange={eduHandleInputChange}
-                      />
+                        label="Autonomous Status"
+                        name="autonomousStatus"
+                        value={eduAutonomousStatus}
+                        onChange={(e) => setEduAutonomousStatus(e.target.value)}
+                      >
+                        <MenuItem value="Autonomous">Autonomous</MenuItem>
+                        <MenuItem value="Non-Autonomous">Non-Autonomous</MenuItem>
+                      </TextField>
                     </Grid>
-                  )}
-                </>
-              )}
+                    {eduAutonomousStatus === "Non-Autonomous" && (
+                      <Grid xs={12} md={6}>
+                        <TextField
+                          fullWidth
+                          label="Affiliated University"
+                          name="universityName"
+                          value={eduFormData.universityName}
+                          onChange={eduHandleInputChange}
+                        />
+                      </Grid>
+                    )}
+                  </>
+                )}
 
               {eduInstitutionType && (
                 <Grid xs={12}>
@@ -753,34 +753,34 @@ export default function Person() {
                   <Grid container spacing={1}>
                     {eduInstitutionType === "School"
                       ? eduInstitutionData.School.departments.map((eduDept) => (
-                          <Grid xs={6} md={3} key={eduDept}>
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  color="success"
-                                  onChange={() => eduHandleDeptToggle(eduDept)}
-                                />
-                              }
-                              label={eduDept}
-                            />
-                          </Grid>
-                        ))
+                        <Grid xs={6} md={3} key={eduDept}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                color="success"
+                                onChange={() => eduHandleDeptToggle(eduDept)}
+                              />
+                            }
+                            label={eduDept}
+                          />
+                        </Grid>
+                      ))
                       : Object.keys(
-                          eduInstitutionData[eduInstitutionType].degrees,
-                        ).map((eduDeg) => (
-                          <Grid xs={6} md={3} key={eduDeg}>
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  color="success"
-                                  checked={eduSelectedDegrees.includes(eduDeg)}
-                                  onChange={() => eduHandleDegreeToggle(eduDeg)}
-                                />
-                              }
-                              label={eduDeg}
-                            />
-                          </Grid>
-                        ))}
+                        eduInstitutionData[eduInstitutionType].degrees,
+                      ).map((eduDeg) => (
+                        <Grid xs={6} md={3} key={eduDeg}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                color="success"
+                                checked={eduSelectedDegrees.includes(eduDeg)}
+                                onChange={() => eduHandleDegreeToggle(eduDeg)}
+                              />
+                            }
+                            label={eduDeg}
+                          />
+                        </Grid>
+                      ))}
                   </Grid>
                 </Grid>
               )}
