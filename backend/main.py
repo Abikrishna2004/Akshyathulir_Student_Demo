@@ -8,6 +8,9 @@ import shutil
 import os
 
 app = FastAPI()
+@app.get("/")
+def home():
+    return {"message": "Akshyathulir Student Demo API is running 🚀"}
 
 # Enable CORS
 app.add_middleware(
