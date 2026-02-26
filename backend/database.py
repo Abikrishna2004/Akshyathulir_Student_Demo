@@ -2,12 +2,14 @@ from pymongo import MongoClient
 import datetime
 import os
 
-MONGO_URI = "mongodb://localhost:27017/"
-DATABASE_NAME = "Incubation_center"
+# To use MongoDB Atlas, replace <YOUR_CLUSTER_DOMAIN> below with your actual cluster domain.
+# Example: cluster0.abcd1.mongodb.net
+MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://abikrishna04edu_db_user:pwININVFYZr8sSIV@cluster0.idv72pk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DATABASE_NAME = "akshayaThulir"
 
 client = MongoClient(MONGO_URI)
 db = client[DATABASE_NAME]
-collection = db["institutions"]
+collection = db["users"]
 
 counters_collection = db["counters"]
 
